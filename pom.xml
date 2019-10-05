@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>net.dzioba</groupId>
-    <artifactId>pet-clinik</artifactId>
+    <artifactId>pet-clinic</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>pet-clinik</name>
+    <name>pet-clinic</name>
     <description>Pet Clinic</description>
 
     <properties>
