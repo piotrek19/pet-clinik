@@ -1,2 +1,2 @@
 # pet-clinik
-sfg pet clinik
+pet clinik
