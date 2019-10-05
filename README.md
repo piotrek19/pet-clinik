@@ -1,2 +1,2 @@
-# pet-clinik
-pet clinik
+# pet-clinic
+pet clinic
