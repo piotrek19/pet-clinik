@@ -14,7 +14,7 @@
     </parent>
     <groupId>net.dzioba</groupId>
     <artifactId>pet-clinic</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.3-SNAPSHOT</version>
     <name>pet-clinic</name>
     <description>Pet Clinic</description>
 
