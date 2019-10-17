@@ -4,7 +4,7 @@ import net.dzioba.petclinic.services.CrudService;
 
 import java.util.*;
 
-class CrudServiceMap<T, ID> implements CrudService<T, ID> {
+abstract class CrudServiceMap<T, ID> implements CrudService<T, ID> {
 
     Map<ID, T> map = new HashMap<>();
 
@@ -26,6 +26,9 @@ class CrudServiceMap<T, ID> implements CrudService<T, ID> {
 
         return map.put(id, object);
     }
+
+    @Override
+    abstract public T save(T object);
 
     @Override
     public void deleteById(ID id) {

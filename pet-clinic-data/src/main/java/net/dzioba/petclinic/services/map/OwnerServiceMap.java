@@ -2,10 +2,12 @@ package net.dzioba.petclinic.services.map;
 
 import net.dzioba.petclinic.model.Owner;
 import net.dzioba.petclinic.services.OwnerService;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.Objects;
 
+@Service
 public class OwnerServiceMap extends CrudServiceMap<Owner, Long> implements OwnerService {
 
     @Override
@@ -19,5 +21,13 @@ public class OwnerServiceMap extends CrudServiceMap<Owner, Long> implements Owne
         }
         // Owner not found:
         return null;
+    }
+
+    @Override
+    public Owner save(Owner object) {
+        Objects.requireNonNull(object);
+        Objects.requireNonNull(object.getId());
+
+        return save(object.getId(), object);
     }
 }
