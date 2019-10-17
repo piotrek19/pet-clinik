@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Service
-public class OwnerServiceMap extends CrudServiceMap<Owner, Long> implements OwnerService {
+public class OwnerServiceMap extends CrudServiceMap<Owner> implements OwnerService {
 
     @Override
     public Owner findByLastName(String lastName) {
@@ -23,11 +23,4 @@ public class OwnerServiceMap extends CrudServiceMap<Owner, Long> implements Owne
         return null;
     }
 
-    @Override
-    public Owner save(Owner object) {
-        Objects.requireNonNull(object);
-        Objects.requireNonNull(object.getId());
-
-        return save(object.getId(), object);
-    }
 }

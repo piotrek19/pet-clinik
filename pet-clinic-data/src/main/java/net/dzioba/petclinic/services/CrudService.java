@@ -1,18 +1,18 @@
 package net.dzioba.petclinic.services;
 
+import net.dzioba.petclinic.model.BaseEntity;
+
 import java.util.Set;
 
-public interface CrudService<T, ID> {
+public interface CrudService<T extends BaseEntity> {
 
     Set<T> findAll();
 
-    T findById(ID id);
-
-    T save(ID id, T object);
+    T findById(Long id);
 
     T save(T object);
 
-    void deleteById(ID id);
+    void deleteById(Long id);
 
     void delete(T object);
 }
