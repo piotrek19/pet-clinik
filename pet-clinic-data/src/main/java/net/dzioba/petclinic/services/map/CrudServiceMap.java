@@ -29,7 +29,13 @@ abstract class CrudServiceMap<T extends BaseEntity> implements CrudService<T> {
 
     private void setIdOf(T object) {
         if (object.getId() == null){
-            object.setId(map.size()+ 1L);
+            Set<Long> keys = map.keySet();
+            if (keys.size() != 0) {
+                object.setId(Collections.max(keys) + 1L);
+            }
+            else {
+                object.setId(1L);
+            }
         }
     }
 
