@@ -14,7 +14,7 @@
     </parent>
     <groupId>net.dzioba</groupId>
     <artifactId>pet-clinic</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4-SNAPSHOT</version>
     <name>pet-clinic</name>
     <description>Pet Clinic</description>
 
@@ -46,7 +46,7 @@
 
     <scm>
         <developerConnection>scm:git:git@github.com:piotrek19/pet-clinik.git</developerConnection>
-      <tag>pet-clinic-0.0.3</tag>
+      <tag>HEAD</tag>
   </scm>
 
 </project>
