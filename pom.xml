@@ -19,10 +19,13 @@
     <description>Pet Clinic</description>
 
     <properties>
+        <!-- Generic properties -->
         <java.version>11</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
-    <dependencies />
+    <dependencies/>
 
     <build>
         <plugins>
@@ -45,6 +48,5 @@
         <developerConnection>scm:git:git@github.com:piotrek19/pet-clinik.git</developerConnection>
       <tag>HEAD</tag>
   </scm>
-
 
 </project>
