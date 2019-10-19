@@ -14,7 +14,7 @@
     </parent>
     <groupId>net.dzioba</groupId>
     <artifactId>pet-clinic</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>0.0.3</version>
     <name>pet-clinic</name>
     <description>Pet Clinic</description>
 
@@ -25,7 +25,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
-    <dependencies/>
+    <dependencies />
 
     <build>
         <plugins>
@@ -46,7 +46,7 @@
 
     <scm>
         <developerConnection>scm:git:git@github.com:piotrek19/pet-clinik.git</developerConnection>
-      <tag>HEAD</tag>
+      <tag>pet-clinic-0.0.3</tag>
   </scm>
 
 </project>
