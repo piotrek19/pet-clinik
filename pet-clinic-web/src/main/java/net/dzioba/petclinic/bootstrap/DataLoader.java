@@ -1,6 +1,7 @@
 package net.dzioba.petclinic.bootstrap;
 
 import net.dzioba.petclinic.model.Owner;
+import net.dzioba.petclinic.model.Pet;
 import net.dzioba.petclinic.model.PetType;
 import net.dzioba.petclinic.model.Vet;
 import net.dzioba.petclinic.services.OwnerService;
@@ -9,6 +10,8 @@ import net.dzioba.petclinic.services.VetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
 
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -36,17 +39,33 @@ public class DataLoader implements CommandLineRunner {
 
         System.out.println("Loaded: PetTypes...");
 
+        Pet michaelsDog = new Pet();
+        michaelsDog.setBirthDate(LocalDate.now());
+        michaelsDog.setName("Suzu");
+        michaelsDog.setPetType(dogPetType);
+
         Owner owner1 = new Owner();
         owner1.setFirstName("Michael");
         owner1.setLastName("Weston");
+        owner1.setAddress("Street 132, City");
+        owner1.setTelephone("123432123");
+        owner1.getPets().add(michaelsDog);
         ownerService.save(owner1);
+
+        Pet fionasCat = new Pet();
+        fionasCat.setBirthDate(LocalDate.now());
+        fionasCat.setName("Chiki");
+        fionasCat.setPetType(catPetType);
 
         Owner owner2 = new Owner();
         owner2.setFirstName("Fiona");
         owner2.setLastName("Glenanne");
+        owner2.setAddress("Street 74, City");
+        owner2.setTelephone("53223423");
+        owner2.getPets().add(fionasCat);
         ownerService.save(owner2);
 
-        System.out.println("Loaded: Owners...");
+        System.out.println("Loaded: Owners and Pets...");
 
         Vet vet1 = new Vet();
         vet1.setFirstName("Sam");

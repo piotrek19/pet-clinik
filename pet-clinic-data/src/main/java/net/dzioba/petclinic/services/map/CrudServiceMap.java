@@ -24,7 +24,8 @@ abstract class CrudServiceMap<T extends BaseEntity> implements CrudService<T> {
     public T save(T object){
         Objects.requireNonNull(object);
         setIdOf(object);
-        return map.put(object.getId(), object);
+        map.put(object.getId(), object);
+        return object;
     }
 
     private void setIdOf(T object) {
