@@ -1,11 +1,9 @@
 package net.dzioba.petclinic.bootstrap;
 
-import net.dzioba.petclinic.model.Owner;
-import net.dzioba.petclinic.model.Pet;
-import net.dzioba.petclinic.model.PetType;
-import net.dzioba.petclinic.model.Vet;
+import net.dzioba.petclinic.model.*;
 import net.dzioba.petclinic.services.OwnerService;
 import net.dzioba.petclinic.services.PetTypeService;
+import net.dzioba.petclinic.services.SpecialityService;
 import net.dzioba.petclinic.services.VetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -19,23 +17,35 @@ public class DataLoader implements CommandLineRunner {
     private final OwnerService ownerService;
     private final VetService vetService;
     private final PetTypeService petTypeService;
+    private final SpecialityService specialityService;
 
     @Autowired
-    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService) {
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialityService specialityService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
+        this.specialityService = specialityService;
     }
 
     @Override
     public void run(String... args) throws Exception {
+        if (noDataInModel()){
+            saveData();
+        }
+    }
+
+    private boolean noDataInModel() {
+        return petTypeService.findAll().size() == 0;
+    }
+
+    private void saveData() {
         PetType dogPetType = new PetType();
         dogPetType.setName("dog");
-        petTypeService.save(dogPetType);
+        dogPetType = petTypeService.save(dogPetType);
 
         PetType catPetType = new PetType();
         catPetType.setName("cat");
-        petTypeService.save(catPetType);
+        catPetType = petTypeService.save(catPetType);
 
         System.out.println("Loaded: PetTypes...");
 
@@ -50,7 +60,7 @@ public class DataLoader implements CommandLineRunner {
         owner1.setAddress("Street 132, City");
         owner1.setTelephone("123432123");
         owner1.getPets().add(michaelsDog);
-        ownerService.save(owner1);
+        owner1 = ownerService.save(owner1);
 
         Pet fionasCat = new Pet();
         fionasCat.setBirthDate(LocalDate.now());
@@ -63,19 +73,34 @@ public class DataLoader implements CommandLineRunner {
         owner2.setAddress("Street 74, City");
         owner2.setTelephone("53223423");
         owner2.getPets().add(fionasCat);
-        ownerService.save(owner2);
+        owner2 = ownerService.save(owner2);
 
         System.out.println("Loaded: Owners and Pets...");
+
+        Speciality radiologySpeciality = new Speciality();
+        radiologySpeciality.setDescription("radiology");
+        radiologySpeciality = specialityService.save(radiologySpeciality);
+
+        Speciality surgerySpeciality = new Speciality();
+        surgerySpeciality.setDescription("surgery");
+        surgerySpeciality = specialityService.save(surgerySpeciality);
+
+        Speciality dentistSpeciality = new Speciality();
+        dentistSpeciality.setDescription("dentist");
+        // intentional lack of save for dentistSpeciality here
 
         Vet vet1 = new Vet();
         vet1.setFirstName("Sam");
         vet1.setLastName("Axe");
-        vetService.save(vet1);
+        vet1.getSpecialities().add(surgerySpeciality);
+        vet1 = vetService.save(vet1);
 
         Vet vet2 = new Vet();
         vet2.setFirstName("Jessie");
         vet2.setLastName("Porter");
-        vetService.save(vet2);
+        vet2.getSpecialities().add(radiologySpeciality);
+        vet2.getSpecialities().add(dentistSpeciality);
+        vet2 = vetService.save(vet2);
 
         System.out.println("Loaded: Vets...");
     }
