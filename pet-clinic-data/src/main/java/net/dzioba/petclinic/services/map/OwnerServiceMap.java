@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.Objects;
+
+import static java.util.Objects.isNull;
+import static java.util.Objects.requireNonNull;
 
 @Service
 public class OwnerServiceMap extends CrudServiceMap<Owner> implements OwnerService {
@@ -18,13 +20,14 @@ public class OwnerServiceMap extends CrudServiceMap<Owner> implements OwnerServi
     private PetTypeService petTypeService;
 
     @Autowired
-    public OwnerServiceMap(PetService petService) {
+    public OwnerServiceMap(PetService petService, PetTypeService petTypeService) {
         this.petService = petService;
+        this.petTypeService = petTypeService;
     }
 
     @Override
     public Owner findByLastName(String lastName) {
-        Objects.requireNonNull(lastName);
+        requireNonNull(lastName);
 
         Collection<Owner> values = map.values();
         for (Owner value : values) {
@@ -37,16 +40,16 @@ public class OwnerServiceMap extends CrudServiceMap<Owner> implements OwnerServi
 
     @Override
     public Owner save(Owner owner){
-        Objects.requireNonNull(owner);
-        Objects.requireNonNull(owner.getLastName());
-        Objects.requireNonNull(owner.getAddress());
+        requireNonNull(owner);
+        requireNonNull(owner.getLastName());
+        requireNonNull(owner.getAddress());
         saveUnsavedPetsOf(owner);
         return super.save(owner);
     }
 
     private void saveUnsavedPetsOf(Owner owner) {
         owner.getPets().forEach(pet -> {
-            if (Objects.isNull(pet.getId())){
+            if (isNull(pet.getId())){
                 saveUnsavedPetType(pet.getPetType());
                 petService.save(pet);
             }
@@ -54,7 +57,8 @@ public class OwnerServiceMap extends CrudServiceMap<Owner> implements OwnerServi
     }
 
     private void saveUnsavedPetType(PetType petType) {
-        if (Objects.isNull(petType.getId())){
+        requireNonNull(petType);
+        if (isNull(petType.getId())){
             petTypeService.save(petType);
         }
     }

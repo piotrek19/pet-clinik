@@ -5,6 +5,8 @@ import net.dzioba.petclinic.services.CrudService;
 
 import java.util.*;
 
+import static java.util.Objects.requireNonNull;
+
 abstract class CrudServiceMap<T extends BaseEntity> implements CrudService<T> {
 
     Map<Long, T> map = new HashMap<>();
@@ -16,13 +18,13 @@ abstract class CrudServiceMap<T extends BaseEntity> implements CrudService<T> {
 
     @Override
     public T findById(Long id) {
-        Objects.requireNonNull(id);
+        requireNonNull(id);
         return map.get(id);
     }
 
     @Override
     public T save(T object){
-        Objects.requireNonNull(object);
+        requireNonNull(object);
         setIdOf(object);
         map.put(object.getId(), object);
         return object;
@@ -42,13 +44,13 @@ abstract class CrudServiceMap<T extends BaseEntity> implements CrudService<T> {
 
     @Override
     public void deleteById(Long id) {
-        Objects.requireNonNull(id);
+        requireNonNull(id);
         map.remove(id);
     }
 
     @Override
     public void delete(T object) {
-        Objects.requireNonNull(object);
+        requireNonNull(object);
         map.values().removeIf(value -> value.equals(object));
     }
 }
