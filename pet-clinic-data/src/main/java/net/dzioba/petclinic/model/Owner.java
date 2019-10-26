@@ -1,6 +1,7 @@
 package net.dzioba.petclinic.model;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class Owner extends Person {
@@ -34,5 +35,12 @@ public class Owner extends Person {
 
     public void setPets(Set<Pet> pets) {
         this.pets = pets;
+    }
+
+    public Pet addPet(Pet pet){
+        Objects.requireNonNull(pet);
+        pet.setOwner(this);
+        pets.add(pet);
+        return pet;
     }
 }
