@@ -6,6 +6,7 @@ import net.dzioba.petclinic.services.OwnerService;
 import net.dzioba.petclinic.services.PetService;
 import net.dzioba.petclinic.services.PetTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -14,10 +15,11 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
 
 @Service
+@Profile({"default", "map"})
 public class OwnerServiceMap extends CrudServiceMap<Owner> implements OwnerService {
 
-    private PetService petService;
-    private PetTypeService petTypeService;
+    private final PetService petService;
+    private final PetTypeService petTypeService;
 
     @Autowired
     public OwnerServiceMap(PetService petService, PetTypeService petTypeService) {

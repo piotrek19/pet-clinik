@@ -4,15 +4,17 @@ import net.dzioba.petclinic.model.Vet;
 import net.dzioba.petclinic.services.SpecialityService;
 import net.dzioba.petclinic.services.VetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
 
 @Service
+@Profile({"default", "map"})
 public class VetServiceMap extends CrudServiceMap<Vet> implements VetService {
 
-    private SpecialityService specialityService;
+    private final SpecialityService specialityService;
 
     @Autowired
     public VetServiceMap(SpecialityService specialityService) {
