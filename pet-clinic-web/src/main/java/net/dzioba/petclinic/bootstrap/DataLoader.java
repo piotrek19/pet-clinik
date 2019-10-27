@@ -105,19 +105,19 @@ public class DataLoader implements CommandLineRunner {
         System.out.println("Loaded: Vets...");
 
         Visit visit1 = new Visit();
-        visit1.setDateTime(LocalDateTime.of(2020, 10, 30, 13, 0));
+        visit1.setDate(LocalDateTime.of(2020, 10, 30, 13, 0));
         visit1.setDescription("Occasional visit");
         visit1.setPet(fionasCat);
         visit1 = visitService.save(visit1);
 
         Visit visit2 = new Visit();
-        visit2.setDateTime(LocalDateTime.of(2021, 10, 30, 13, 0));
+        visit2.setDate(LocalDateTime.of(2021, 10, 30, 13, 0));
         visit2.setDescription("Another occasional visit");
         visit2.setPet(fionasCat);
         visit2 = visitService.save(visit2);
 
         Visit visit3 = new Visit();
-        visit3.setDateTime(LocalDateTime.of(2019, 10, 14, 10, 30));
+        visit3.setDate(LocalDateTime.of(2019, 10, 14, 10, 30));
         visit3.setDescription("Not really know why");
         visit3.setPet(michaelsDog);
         visit3 = visitService.save(visit3);
