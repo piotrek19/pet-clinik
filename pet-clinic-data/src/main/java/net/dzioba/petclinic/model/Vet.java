@@ -43,4 +43,14 @@ public class Vet extends Person {
     public int hashCode() {
         return Objects.hash(super.hashCode(), specialities);
     }
+
+    @Override
+    public String toString() {
+        return "Vet{" +
+                "id=" + getId() +
+                ", firstName=" + getFirstName() +
+                ", lastName=" + getLastName() +
+                ", specialities=" + specialities +
+                '}';
+    }
 }

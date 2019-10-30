@@ -31,13 +31,20 @@ public class Speciality extends BaseEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Speciality)) return false;
-        if (!super.equals(o)) return false;
         Speciality that = (Speciality) o;
         return Objects.equals(description, that.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), description);
+        return Objects.hash(description);
+    }
+
+    @Override
+    public String toString() {
+        return "Speciality{" +
+                "id=" + getId() +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

@@ -5,12 +5,14 @@ import net.dzioba.petclinic.model.Pet;
 import net.dzioba.petclinic.model.PetType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.time.LocalDate;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.times;
 
 class OwnerServiceMapTest {
 
@@ -27,8 +29,8 @@ class OwnerServiceMapTest {
 
     @BeforeEach
     void setUp() {
-        petServiceMap = new PetServiceMap();
-        petTypeServiceMap = new PetTypeServiceMap();
+        petServiceMap = Mockito.mock(PetServiceMap.class);
+        petTypeServiceMap = Mockito.mock(PetTypeServiceMap.class);
         ownerServiceMap = new OwnerServiceMap(petServiceMap, petTypeServiceMap);
     }
 
@@ -135,7 +137,6 @@ class OwnerServiceMapTest {
         owner.setId(null);
         //when
         Owner resultOwner = ownerServiceMap.save(owner);
-        owner.setId(resultOwner.getId());
         //then
         assertThat(resultOwner.getId()).isNotNull();
         assertThat(resultOwner).isEqualTo(owner);
@@ -151,16 +152,11 @@ class OwnerServiceMapTest {
         owner.addPet(pet);
         //when
         Owner resultOwner = ownerServiceMap.save(owner);
-        owner.setId(resultOwner.getId());
-        petType.setId(petTypeServiceMap.findAll().iterator().next().getId());
-        pet.setId(petServiceMap.findAll().iterator().next().getId());
         //then
         assertThat(resultOwner.getId()).isNotNull();
         assertThat(resultOwner).isEqualTo(owner);
-        assertThat(petTypeServiceMap.findAll().iterator().next().getId()).isNotNull();
-        assertThat(petTypeServiceMap.findAll().iterator().next()).isEqualTo(petType);
-        assertThat(petServiceMap.findAll().iterator().next().getId()).isNotNull();
-        assertThat(petServiceMap.findAll().iterator().next()).isEqualTo(pet);
+        Mockito.verify(petTypeServiceMap, times(1)).save(petType);
+        Mockito.verify(petServiceMap, times(1)).save(pet);
     }
 
     @Test

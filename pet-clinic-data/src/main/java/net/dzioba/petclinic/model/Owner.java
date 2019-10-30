@@ -66,4 +66,15 @@ public class Owner extends Person {
     public int hashCode() {
         return Objects.hash(super.hashCode(), address, telephone);
     }
+
+    @Override
+    public String toString() {
+        return "Owner{" +
+                "id=" + getId() +
+                ", firstName=" + getFirstName() +
+                ", lastName=" + getLastName() +
+                ", address='" + address + '\'' +
+                ", telephone='" + telephone + '\'' +
+                '}';
+    }
 }

@@ -81,17 +81,26 @@ public class Pet extends BaseEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Pet)) return false;
-        if (!super.equals(o)) return false;
         Pet pet = (Pet) o;
         return Objects.equals(name, pet.name) &&
                 Objects.equals(birthDate, pet.birthDate) &&
                 Objects.equals(petType, pet.petType) &&
-                Objects.equals(owner, pet.owner) &&
-                Objects.equals(visits, pet.visits);
+                Objects.equals(owner, pet.owner);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), name, birthDate, petType, visits, owner);
+        return Objects.hash(name, birthDate, petType, owner);
+    }
+
+    @Override
+    public String toString() {
+        return "Pet{" +
+                "id=" + getId() +
+                ", name='" + name + '\'' +
+                ", birthDate=" + birthDate +
+                ", petType=" + petType +
+                ", owner=" + owner +
+                '}';
     }
 }

@@ -55,7 +55,6 @@ public class Visit extends BaseEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Visit)) return false;
-        if (!super.equals(o)) return false;
         Visit visit = (Visit) o;
         return Objects.equals(date, visit.date) &&
                 Objects.equals(description, visit.description) &&
@@ -64,6 +63,16 @@ public class Visit extends BaseEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), date, description, pet);
+        return Objects.hash(date, description, pet);
+    }
+
+    @Override
+    public String toString() {
+        return "Visit{" +
+                "id=" + getId() +
+                ", date=" + date +
+                ", description='" + description + '\'' +
+                ", pet=" + pet +
+                '}';
     }
 }

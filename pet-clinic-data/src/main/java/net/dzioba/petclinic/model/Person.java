@@ -41,7 +41,6 @@ public class Person extends BaseEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Person)) return false;
-        if (!super.equals(o)) return false;
         Person person = (Person) o;
         return Objects.equals(firstName, person.firstName) &&
                 Objects.equals(lastName, person.lastName);
@@ -49,6 +48,15 @@ public class Person extends BaseEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), firstName, lastName);
+        return Objects.hash(firstName, lastName);
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + getId() +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
     }
 }
