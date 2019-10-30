@@ -2,7 +2,6 @@ package net.dzioba.petclinic.services.map;
 
 import net.dzioba.petclinic.model.Owner;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.Set;
@@ -103,11 +102,40 @@ class OwnerServiceMapTest {
         });
     }
 
-    @Test @Disabled
+    @Test
     void findByLastName() {
+        //given
+        Owner referenceOwner = ownerServiceMap.save(createReferenceOwner());
+        //when
+        Owner resultOwner = ownerServiceMap.findByLastName(OWNER_LAST_NAME);
+        //then
+        assertThat(resultOwner).isSameAs(referenceOwner);
     }
 
-    @Test @Disabled
+    @Test
+    void findByLastNameWithNullArgument() {
+        assertThrows(NullPointerException.class, () -> {
+            ownerServiceMap.findByLastName(null);
+        });
+    }
+
+    @Test
     void save() {
+        //given
+        Owner owner = createReferenceOwner();
+        owner.setId(null);
+        //when
+        Owner resultOwner = ownerServiceMap.save(owner);
+        owner.setId(resultOwner.getId());
+        //then
+        assertThat(resultOwner.getId()).isNotNull();
+        assertThat(resultOwner).isEqualTo(owner);
+    }
+
+    @Test
+    void saveWithNullArgument() {
+        assertThrows(NullPointerException.class, () -> {
+            ownerServiceMap.save(null);
+        });
     }
 }
