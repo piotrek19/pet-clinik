@@ -51,4 +51,19 @@ public class Owner extends Person {
         pets.add(pet);
         return pet;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Owner)) return false;
+        if (!super.equals(o)) return false;
+        Owner owner = (Owner) o;
+        return Objects.equals(address, owner.address) &&
+                Objects.equals(telephone, owner.telephone);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), address, telephone);
+    }
 }

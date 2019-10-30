@@ -2,6 +2,7 @@ package net.dzioba.petclinic.model;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -27,5 +28,19 @@ public class Vet extends Person {
     public Speciality addSpeciality(Speciality speciality) {
         specialities.add(speciality);
         return speciality;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Vet)) return false;
+        if (!super.equals(o)) return false;
+        Vet vet = (Vet) o;
+        return Objects.equals(specialities, vet.specialities);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), specialities);
     }
 }

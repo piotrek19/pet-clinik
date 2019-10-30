@@ -2,6 +2,7 @@ package net.dzioba.petclinic.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Table(name = "visit")
@@ -18,6 +19,12 @@ public class Visit extends BaseEntity {
     private Pet pet;
 
     public Visit() {
+    }
+
+    public Visit(LocalDateTime date, String description, Pet pet) {
+        this.date = date;
+        this.description = description;
+        this.pet = pet;
     }
 
     public LocalDateTime getDate() {
@@ -42,5 +49,21 @@ public class Visit extends BaseEntity {
 
     public void setPet(Pet pet) {
         this.pet = pet;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Visit)) return false;
+        if (!super.equals(o)) return false;
+        Visit visit = (Visit) o;
+        return Objects.equals(date, visit.date) &&
+                Objects.equals(description, visit.description) &&
+                Objects.equals(pet, visit.pet);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), date, description, pet);
     }
 }
