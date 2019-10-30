@@ -1,9 +1,12 @@
 package net.dzioba.petclinic.services.map;
 
 import net.dzioba.petclinic.model.Owner;
+import net.dzioba.petclinic.model.Pet;
+import net.dzioba.petclinic.model.PetType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -15,12 +18,18 @@ class OwnerServiceMapTest {
     private static final String OWNER_ADDRESS = "OWNER_ADDRESS";
     private static final String OWNER_FIRST_NAME = "OWNER_FIRST_NAME";
     private static final String OWNER_LAST_NAME = "OWNER_LAST_NAME";
+    private static final String PET_TYPE_NAME = "PET_TYPE_NAME";
 
     private OwnerServiceMap ownerServiceMap;
 
+    private PetServiceMap petServiceMap;
+    private PetTypeServiceMap petTypeServiceMap;
+
     @BeforeEach
     void setUp() {
-        ownerServiceMap = new OwnerServiceMap(new PetServiceMap(), new PetTypeServiceMap());
+        petServiceMap = new PetServiceMap();
+        petTypeServiceMap = new PetTypeServiceMap();
+        ownerServiceMap = new OwnerServiceMap(petServiceMap, petTypeServiceMap);
     }
 
     private Owner createReferenceOwner() {
@@ -133,9 +142,53 @@ class OwnerServiceMapTest {
     }
 
     @Test
+    void saveWithUnsavedPetAndPetType() {
+        //given
+        Owner owner = createReferenceOwner();
+        owner.setId(null);
+        PetType petType = new PetType(PET_TYPE_NAME);
+        Pet pet = new Pet("PET_NAME", LocalDate.now(), petType, owner);
+        owner.addPet(pet);
+        //when
+        Owner resultOwner = ownerServiceMap.save(owner);
+        owner.setId(resultOwner.getId());
+        petType.setId(petTypeServiceMap.findAll().iterator().next().getId());
+        pet.setId(petServiceMap.findAll().iterator().next().getId());
+        //then
+        assertThat(resultOwner.getId()).isNotNull();
+        assertThat(resultOwner).isEqualTo(owner);
+        assertThat(petTypeServiceMap.findAll().iterator().next().getId()).isNotNull();
+        assertThat(petTypeServiceMap.findAll().iterator().next()).isEqualTo(petType);
+        assertThat(petServiceMap.findAll().iterator().next().getId()).isNotNull();
+        assertThat(petServiceMap.findAll().iterator().next()).isEqualTo(pet);
+    }
+
+    @Test
     void saveWithNullArgument() {
         assertThrows(NullPointerException.class, () -> {
             ownerServiceMap.save(null);
+        });
+    }
+
+    @Test
+    void saveWithNullLastName() {
+        //given
+        Owner owner = createReferenceOwner();
+        owner.setLastName(null);
+        // when then
+        assertThrows(NullPointerException.class, () -> {
+            ownerServiceMap.save(owner);
+        });
+    }
+
+    @Test
+    void saveWithNullAddress() {
+        //given
+        Owner owner = createReferenceOwner();
+        owner.setAddress(null);
+        // when then
+        assertThrows(NullPointerException.class, () -> {
+            ownerServiceMap.save(owner);
         });
     }
 }
