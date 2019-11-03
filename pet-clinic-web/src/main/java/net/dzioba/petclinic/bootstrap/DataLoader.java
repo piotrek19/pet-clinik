@@ -50,7 +50,7 @@ public class DataLoader implements CommandLineRunner {
         System.out.println("Loaded: PetTypes...");
 
         Pet michaelsDog = new Pet();
-        michaelsDog.setBirthDate(LocalDate.now());
+        michaelsDog.setBirthDate(LocalDate.of(2017, 7, 3));
         michaelsDog.setName("Suzu");
         michaelsDog.setPetType(dogPetType);
 
@@ -63,7 +63,7 @@ public class DataLoader implements CommandLineRunner {
         owner1 = ownerService.save(owner1);
 
         Pet fionasCat = new Pet();
-        fionasCat.setBirthDate(LocalDate.now());
+        fionasCat.setBirthDate(LocalDate.of(2018, 3, 12));
         fionasCat.setName("Chiki");
         fionasCat.setPetType(catPetType);
 
