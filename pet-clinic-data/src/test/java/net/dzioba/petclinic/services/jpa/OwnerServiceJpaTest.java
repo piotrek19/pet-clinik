@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -44,18 +45,18 @@ class OwnerServiceJpaTest {
     void findByLastName() {
         //given
         Owner referenceOwner = createReferenceOwner();
-        when(ownerRepository.findByLastName(OWNER_LAST_NAME)).thenReturn(Optional.of(referenceOwner));
+        when(ownerRepository.findByLastNameLike(OWNER_LAST_NAME)).thenReturn(List.of(referenceOwner));
         //when
-        Owner resultOwner = ownerServiceJpa.findByLastName(OWNER_LAST_NAME);
+        List<Owner> resultCollection = ownerServiceJpa.findByLastNameLike(OWNER_LAST_NAME);
         //then
-        assertThat(resultOwner).isEqualTo(referenceOwner);
-        verify(ownerRepository, times(1)).findByLastName(any());
+        assertThat(resultCollection.iterator().next()).isEqualTo(referenceOwner);
+        verify(ownerRepository, times(1)).findByLastNameLike(any());
     }
 
     @Test
     void findByLastNameWithNullArgument() {
         assertThrows(NullPointerException.class, () -> {
-            ownerServiceJpa.findByLastName(null);
+            ownerServiceJpa.findByLastNameLike(null);
         });
     }
 

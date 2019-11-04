@@ -3,6 +3,7 @@ package net.dzioba.petclinic.controllers;
 import net.dzioba.petclinic.model.Owner;
 import net.dzioba.petclinic.services.OwnerService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -12,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.hamcrest.Matchers.hasProperty;
@@ -20,6 +22,7 @@ import static org.hamcrest.core.Is.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -89,5 +92,22 @@ class OwnerControllerTest {
                 .andExpect(model().attribute("owner", hasProperty("id", is(1L))));
 
         verify(ownerService, times(1)).findById(any());
+    }
+
+    @Test @Disabled
+    void findOwnerByLastName() throws Exception {
+        //given
+        Owner owner = new Owner();
+        owner.setId(1L);
+        owner.setLastName("LastName");
+        when(ownerService.findByLastNameLike("LastName")).thenReturn(List.of(owner));
+
+        //when then
+        mockMvc.perform(post("findOwner"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("owners"))
+                .andExpect(model().attribute("owners", hasSize(1)));
+
+        verify(ownerService, times(1)).findByLastNameLike(any());
     }
 }

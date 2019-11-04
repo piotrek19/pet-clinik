@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
@@ -28,16 +30,18 @@ public class OwnerServiceMap extends CrudServiceMap<Owner> implements OwnerServi
     }
 
     @Override
-    public Owner findByLastName(String lastName) {
+    public List<Owner> findByLastNameLike(String lastName) {
+        // TODO should be changed to compare using wildcards before and after lastName: *lastName*
         requireNonNull(lastName);
 
         Collection<Owner> values = map.values();
+        List<Owner> resultCollection = new ArrayList<>();
         for (Owner value : values) {
             if (lastName.equals(value.getLastName()))
-                return value;   // Owner found.
+                resultCollection.add(value);   // Owner found.
         }
-        // Owner not found:
-        return null;
+
+        return resultCollection;
     }
 
     @Override

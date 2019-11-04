@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -118,15 +119,15 @@ class OwnerServiceMapTest {
         //given
         Owner referenceOwner = ownerServiceMap.save(createReferenceOwner());
         //when
-        Owner resultOwner = ownerServiceMap.findByLastName(OWNER_LAST_NAME);
+        Collection<Owner> resultCollection = ownerServiceMap.findByLastNameLike(OWNER_LAST_NAME);
         //then
-        assertThat(resultOwner).isSameAs(referenceOwner);
+        assertThat(resultCollection.iterator().next()).isSameAs(referenceOwner);
     }
 
     @Test
     void findByLastNameWithNullArgument() {
         assertThrows(NullPointerException.class, () -> {
-            ownerServiceMap.findByLastName(null);
+            ownerServiceMap.findByLastNameLike(null);
         });
     }
 
