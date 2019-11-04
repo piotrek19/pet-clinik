@@ -28,6 +28,10 @@ public class BaseEntity implements Serializable {
         this.id = id;
     }
 
+    public boolean isNew(){
+        return id == null;
+    }
+
     @Override
     public String toString() {
         return "BaseEntity{" +

@@ -22,6 +22,7 @@ public class OwnerController {
     private static final String VIEW_LIST_OWNERS = "owners/index";
     private static final String VIEW_OWNER_DETAILS = "owners/ownerDetails";
     private static final String VIEW_FIND_OWNERS_FORM = "owners/findOwnersForm";
+    private static final String VIEW_CREATE_OR_UPDATE_OWNER_FORM = "owners/createOrUpdateOwnerForm";
 
 
     private final OwnerService ownerService;
@@ -73,5 +74,12 @@ public class OwnerController {
 
         model.addAttribute("owner", owner);
         return VIEW_OWNER_DETAILS;
+    }
+
+    @GetMapping("/new")
+    public String createOwnerForm(Model model){
+        Owner owner = new Owner();
+        model.addAttribute("owner", owner);
+        return VIEW_CREATE_OR_UPDATE_OWNER_FORM;
     }
 }

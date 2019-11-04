@@ -17,6 +17,7 @@ import java.util.List;
 import static org.hamcrest.beans.HasPropertyWithValue.hasProperty;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.nullValue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -121,5 +122,14 @@ class OwnerControllerTest {
                 .andExpect(model().attribute("owner", hasProperty("id", is(1L))));
 
         verify(ownerService, times(1)).findById(any());
+    }
+
+    @Test
+    void showCreateOwnerForm() throws Exception {
+        //when then
+        mockMvc.perform(get("/owners/new"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("owners/createOwnerForm"))
+                .andExpect(model().attribute("owner", hasProperty("id", nullValue())));
     }
 }
