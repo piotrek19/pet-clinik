@@ -5,7 +5,7 @@
     <title>List of Owners</title>
 </head>
 <body>
-<h1 th:text="'List of Owners'">List of Owners</h1>
+<h1 th:text="'Owners search result'">Search results</h1>
 
 <table class="table table-striped">
     <thead>
@@ -13,6 +13,8 @@
         <th>Id</th>
         <th>First Name</th>
         <th>Last Name</th>
+        <th>Address</th>
+        <th>Actions</th>
     </tr>
     </thead>
     <tbody>
@@ -20,6 +22,8 @@
         <td th:text="${owner.id}">1</td>
         <td th:text="${owner.firstName}">Joe</td>
         <td th:text="${owner.lastName}">Buck</td>
+        <td th:text="${owner.address}">simple address</td>
+        <td><a th:href="@{/owners/{ownerId}(ownerId=${owner.id})}">Details</a></td>
     </tr>
     </tbody>
 </table>
