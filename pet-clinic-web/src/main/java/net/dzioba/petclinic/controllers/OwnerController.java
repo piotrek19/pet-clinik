@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Controller
@@ -38,16 +38,16 @@ public class OwnerController {
 
     @GetMapping({"", "/", "/index", "/index.html"})
     public String listOwners(Owner owner, Model model, BindingResult bindingResult){
-        Collection<Owner> owners ;
+
         if (isLastNameNotSpecified(owner)) {
-            owners = ownerService.findAll();
+            owner = new Owner();
+            owner.setLastName("");
         }
-        else {
-            owners = ownerService.findByLastNameLike("%" + owner.getLastName() + "%");
-            if (owners.isEmpty()) {
-                bindingResult.rejectValue("lastName", "notFound", "not found");
-                return VIEW_FIND_OWNERS_FORM;
-            }
+
+        List<Owner> owners = ownerService.findByLastNameLike("%" + owner.getLastName() + "%");
+        if (owners.isEmpty()) {
+            bindingResult.rejectValue("lastName", "notFound", "not found");
+            return VIEW_FIND_OWNERS_FORM;
         }
 
         model.addAttribute("owners", owners);
