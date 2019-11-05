@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -81,7 +82,11 @@ public class OwnerController {
     }
 
     @PostMapping("/new")
-    public String createOwner(Owner owner, Model model){
+    public String createOwner(@Valid Owner owner, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return VIEW_CREATE_OR_UPDATE_OWNER_FORM;
+        }
+
         Owner savedOwner = ownerService.save(owner);
         return "redirect:/owners/" + savedOwner.getId();
     }
@@ -97,7 +102,11 @@ public class OwnerController {
     }
 
     @PostMapping("/{ownerId}/edit")
-    public String editOwner(@PathVariable Long ownerId, Owner owner, Model model){
+    public String editOwner(@PathVariable Long ownerId, @Valid Owner owner, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+           return VIEW_CREATE_OR_UPDATE_OWNER_FORM;
+        }
+
         Owner retrievedOwner = ownerService.findById(ownerId);
         if (retrievedOwner == null) throw new NoSuchElementException("Owner doesn't exist");
 
