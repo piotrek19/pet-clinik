@@ -90,7 +90,7 @@ class PetControllerTest {
                 .andExpect(view().name("redirect:/owners/" + OWNER_ID));
 
         verify(petService, times(1)).save(any());
-        verify(ownerService, times(2)).findById(any());
+        verify(ownerService, times(1)).findById(any());
     }
 
     @Test
@@ -112,6 +112,15 @@ class PetControllerTest {
     }
 
     @Test
-    void editPet() {
+    void editPet() throws Exception {
+        when(ownerService.findById(OWNER_ID)).thenReturn(createReferenceOwner());
+        when(petService.save(any())).thenReturn(createReferencePet());
+
+        mockMvc.perform(post("/owners/" + OWNER_ID + "/pets/" + PET_ID + "/edit"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/owners/" + OWNER_ID));
+
+        verify(petService, times(1)).save(any());
+        verify(ownerService, times(1)).findById(any());
     }
 }

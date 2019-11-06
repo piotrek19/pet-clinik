@@ -59,15 +59,13 @@ public class PetController {
     }
 
     @PostMapping("/pets/new")
-    public String createPet(@PathVariable Long ownerId, @Valid Pet pet, BindingResult bindingResult){
+    public String createPet(@PathVariable Long ownerId, @Valid Pet pet, Owner owner, Model model, BindingResult bindingResult){
         if (bindingResult.hasErrors()){
+            model.addAttribute("pet", pet);
             return VIEW_CREATE_OR_UPDATE_PET_FORM;
         }
 
-        Owner savedOwner = ownerService.findById(ownerId);
-        if (savedOwner == null) throw new NoSuchElementException("Owner doesn't exist");
-
-        pet.setOwner(savedOwner);
+        pet.setOwner(owner);
         petService.save(pet);
 
         return "redirect:/owners/" + ownerId;
@@ -83,8 +81,15 @@ public class PetController {
     }
 
     @PostMapping("/pets/{petId}/edit")
-    public String editPet(@PathVariable Long ownerId){
+    public String editPet(@PathVariable Long ownerId, @Valid Pet pet, Owner owner, Model model, BindingResult bindingResult){
+        pet.setOwner(owner);
 
+        if (bindingResult.hasErrors()){
+            model.addAttribute("pet", pet);
+            return VIEW_CREATE_OR_UPDATE_PET_FORM;
+        }
+
+        petService.save(pet);
         return "redirect:/owners/" + ownerId;
     }
 
