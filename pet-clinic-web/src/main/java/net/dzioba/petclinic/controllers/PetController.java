@@ -81,8 +81,9 @@ public class PetController {
     }
 
     @PostMapping("/pets/{petId}/edit")
-    public String editPet(@PathVariable Long ownerId, @Valid Pet pet, Owner owner, Model model, BindingResult bindingResult){
+    public String editPet(@PathVariable Long ownerId, @PathVariable Long petId, @Valid Pet pet, Owner owner, Model model, BindingResult bindingResult){
         pet.setOwner(owner);
+        pet.setId(petId);
 
         if (bindingResult.hasErrors()){
             model.addAttribute("pet", pet);
