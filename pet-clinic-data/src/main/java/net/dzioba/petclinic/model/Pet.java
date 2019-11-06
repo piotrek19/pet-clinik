@@ -77,6 +77,11 @@ public class Pet extends BaseEntity {
         this.visits = visits;
     }
 
+    public void addVisit(Visit visit){
+        visit.setPet(this);
+        visits.add(visit);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -55,7 +55,7 @@
                 </tr>
                 </thead>
                 <tr th:each="visit : ${pet.visits}">
-                    <td th:text="${#temporals.format(visit.date, 'yyyy-MM-dd')}"></td>
+                    <td th:text="${#temporals.format(visit.date, 'yyyy-MM-dd HH:mm')}"></td>
                     <td th:text="${visit?.description}"></td>
                 </tr>
                 <tr>
