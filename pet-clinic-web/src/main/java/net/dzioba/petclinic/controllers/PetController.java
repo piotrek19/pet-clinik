@@ -59,7 +59,7 @@ public class PetController {
     }
 
     @PostMapping("/pets/new")
-    public String createPet(@PathVariable Long ownerId, @Valid Pet pet, Owner owner, Model model, BindingResult bindingResult){
+    public String createPet(@PathVariable Long ownerId, Owner owner, @Valid Pet pet, BindingResult bindingResult, Model model){
         if (bindingResult.hasErrors()){
             model.addAttribute("pet", pet);
             return VIEW_CREATE_OR_UPDATE_PET_FORM;
@@ -81,7 +81,7 @@ public class PetController {
     }
 
     @PostMapping("/pets/{petId}/edit")
-    public String editPet(@PathVariable Long ownerId, @PathVariable Long petId, @Valid Pet pet, Owner owner, Model model, BindingResult bindingResult){
+    public String editPet(@PathVariable Long ownerId, Owner owner, @PathVariable Long petId, @Valid Pet pet, BindingResult bindingResult, Model model){
         pet.setOwner(owner);
         pet.setId(petId);
 

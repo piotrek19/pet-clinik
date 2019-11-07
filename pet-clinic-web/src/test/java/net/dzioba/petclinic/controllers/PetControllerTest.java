@@ -85,7 +85,8 @@ class PetControllerTest {
         when(ownerService.findById(OWNER_ID)).thenReturn(createReferenceOwner());
         when(petService.save(any())).thenReturn(createReferencePet());
 
-        mockMvc.perform(post("/owners/" + OWNER_ID + "/pets/new"))
+        mockMvc.perform(post("/owners/" + OWNER_ID + "/pets/new")
+                .param("name", "name"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/owners/" + OWNER_ID));
 
@@ -116,7 +117,8 @@ class PetControllerTest {
         when(ownerService.findById(OWNER_ID)).thenReturn(createReferenceOwner());
         when(petService.save(any())).thenReturn(createReferencePet());
 
-        mockMvc.perform(post("/owners/" + OWNER_ID + "/pets/" + PET_ID + "/edit"))
+        mockMvc.perform(post("/owners/" + OWNER_ID + "/pets/" + PET_ID + "/edit")
+                .param("name", "name"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/owners/" + OWNER_ID));
 

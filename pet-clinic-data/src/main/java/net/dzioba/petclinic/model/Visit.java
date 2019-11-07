@@ -1,6 +1,8 @@
 package net.dzioba.petclinic.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -8,9 +10,11 @@ import java.util.Objects;
 @Table(name = "visit")
 public class Visit extends BaseEntity {
 
+    @NotNull
     @Column(name = "date")
     private LocalDateTime date;
 
+    @Size(max = 255)
     @Column(name = "description")
     private String description;
 

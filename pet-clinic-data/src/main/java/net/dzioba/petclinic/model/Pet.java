@@ -1,6 +1,8 @@
 package net.dzioba.petclinic.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
@@ -10,6 +12,8 @@ import java.util.Set;
 @Table(name = "pet")
 public class Pet extends BaseEntity {
 
+    @NotBlank
+    @Size(max=255)
     @Column(name = "name")
     private String name;
 

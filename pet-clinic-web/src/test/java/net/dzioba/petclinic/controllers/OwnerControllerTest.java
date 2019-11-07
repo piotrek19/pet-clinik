@@ -9,6 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -26,6 +27,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(MockitoExtension.class)
 class OwnerControllerTest {
+
+    private final Long OWNER_ID = 11L;
 
     @InjectMocks
     OwnerController ownerController;
@@ -84,7 +87,7 @@ class OwnerControllerTest {
     @Test
     void findOwnerByLastNameResultForEmptyLastName() throws Exception {
         //given
-        List<Owner> owners = createOwners();
+        List<Owner> owners = createReferenceOwners();
         when(ownerService.findByLastNameLike(any())).thenReturn(owners);
 
         //when then
@@ -97,14 +100,25 @@ class OwnerControllerTest {
         verify(ownerService, times(1)).findByLastNameLike(any());
     }
 
-    private List<Owner> createOwners(){
+    private Owner createReferenceOwner() {
+        Owner owner = new Owner();
+        owner.setId(OWNER_ID);
+        owner.setFirstName("firstName");
+        owner.setLastName("lastName");
+        owner.setAddress("address");
+        return owner;
+    }
+
+    private List<Owner> createReferenceOwners(){
         Owner owner1 = new Owner();
         owner1.setId(1L);
         owner1.setAddress("address1");
+        owner1.setFirstName("firstName1");
         owner1.setLastName("lastName1");
         Owner owner2 = new Owner();
         owner2.setId(2L);
         owner2.setAddress("address2");
+        owner2.setFirstName("firstName2");
         owner2.setLastName("lastName2");
         return List.of(owner1, owner2);
     }
@@ -137,13 +151,15 @@ class OwnerControllerTest {
     @Test
     void createOwner() throws Exception {
         //given
-        final Long OWNER_ID = 11L;
-        Owner owner = new Owner();
-        owner.setId(OWNER_ID);
+        Owner owner = createReferenceOwner();
         when(ownerService.save(any())).thenReturn(owner);
 
         //when then
-        mockMvc.perform(post("/owners/new"))
+        mockMvc.perform(post("/owners/new")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("firstName", "firstName")
+                .param("lastName", "lastName")
+                .param("address", "address"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/owners/" + OWNER_ID));
 
@@ -153,9 +169,7 @@ class OwnerControllerTest {
     @Test
     void showEditOwnerForm() throws Exception {
         //given
-        final Long OWNER_ID = 11L;
-        Owner owner = new Owner();
-        owner.setId(OWNER_ID);
+        Owner owner = createReferenceOwner();
         when(ownerService.findById(OWNER_ID)).thenReturn(owner);
 
         //when then
@@ -170,14 +184,16 @@ class OwnerControllerTest {
     @Test
     void editOwner() throws Exception {
         //given
-        final Long OWNER_ID = 11L;
-        Owner owner = new Owner();
-        owner.setId(OWNER_ID);
+        Owner owner = createReferenceOwner();
         when(ownerService.findById(any())).thenReturn(owner);
         when(ownerService.save(any())).thenReturn(owner);
 
         //when then
-        mockMvc.perform(post("/owners/" + OWNER_ID + "/edit"))
+        mockMvc.perform(post("/owners/" + OWNER_ID + "/edit")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("firstName", "firstName")
+                .param("lastName", "lastName")
+                .param("address", "address"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/owners/" + OWNER_ID));
 

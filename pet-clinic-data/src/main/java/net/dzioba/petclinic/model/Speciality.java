@@ -3,12 +3,16 @@ package net.dzioba.petclinic.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
 @Table(name = "speciality")
 public class Speciality extends BaseEntity {
 
+    @NotBlank
+    @Size(max = 255)
     @Column(name = "description")
     private String description;
 

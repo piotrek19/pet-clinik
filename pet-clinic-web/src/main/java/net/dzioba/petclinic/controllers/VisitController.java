@@ -48,7 +48,7 @@ public class VisitController {
     }
 
     @PostMapping("/visits/new")
-    public String createVisit(@PathVariable Long ownerId, @Valid Visit visit, Pet pet, Model model, BindingResult bindingResult){
+    public String createVisit(@PathVariable Long ownerId, @Valid Visit visit, BindingResult bindingResult, Pet pet, Model model){
         if (bindingResult.hasErrors()){
             model.addAttribute("visit", visit);
             return VIEW_CREATE_OR_UPDATE_VISIT_FORM;

@@ -1,6 +1,8 @@
 package net.dzioba.petclinic.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -9,9 +11,12 @@ import java.util.Set;
 @Table(name = "owner")
 public class Owner extends Person {
 
+    @NotBlank
+    @Size(max = 255)
     @Column(name = "address")
     private String address;
 
+    @Size(max = 50)
     @Column(name = "telephone")
     private String telephone;
 
