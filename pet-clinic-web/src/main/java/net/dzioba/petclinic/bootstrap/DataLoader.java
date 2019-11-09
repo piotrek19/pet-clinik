@@ -1,5 +1,6 @@
 package net.dzioba.petclinic.bootstrap;
 
+import lombok.extern.slf4j.Slf4j;
 import net.dzioba.petclinic.model.*;
 import net.dzioba.petclinic.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Slf4j
 @Component
 public class DataLoader implements CommandLineRunner {
 
@@ -32,6 +34,9 @@ public class DataLoader implements CommandLineRunner {
         if (noDataInModel()){
             saveData();
         }
+        else {
+            log.debug("No need to load data.");
+        }
     }
 
     private boolean noDataInModel() {
@@ -39,6 +44,7 @@ public class DataLoader implements CommandLineRunner {
     }
 
     private void saveData() {
+        log.debug("Loading data process started...");
         PetType dogPetType = new PetType();
         dogPetType.setName("dog");
         dogPetType = petTypeService.save(dogPetType);
@@ -47,7 +53,7 @@ public class DataLoader implements CommandLineRunner {
         catPetType.setName("cat");
         catPetType = petTypeService.save(catPetType);
 
-        System.out.println("Loaded: PetTypes...");
+        log.debug("Loaded data: PetTypes...");
 
         Pet michaelsDog = new Pet();
         michaelsDog.setBirthDate(LocalDate.of(2017, 7, 3));
@@ -75,7 +81,7 @@ public class DataLoader implements CommandLineRunner {
         fionasCat = owner2.addPet(fionasCat);
         owner2 = ownerService.save(owner2);
 
-        System.out.println("Loaded: Owners and Pets...");
+        log.debug("Loaded data: Owners and Pets...");
 
         Speciality radiologySpeciality = new Speciality();
         radiologySpeciality.setDescription("radiology");
@@ -102,7 +108,7 @@ public class DataLoader implements CommandLineRunner {
         vet2.addSpeciality(dentistSpeciality);
         vet2 = vetService.save(vet2);
 
-        System.out.println("Loaded: Vets...");
+        log.debug("Loaded data: Vets...");
 
         Visit visit1 = new Visit();
         visit1.setDate(LocalDateTime.of(2020, 10, 30, 13, 0));
@@ -122,6 +128,6 @@ public class DataLoader implements CommandLineRunner {
         visit3.setPet(michaelsDog);
         visit3 = visitService.save(visit3);
 
-        System.out.println("Loaded: Visits...");
+        log.debug("Loaded data: Visits...");
     }
 }

@@ -149,7 +149,7 @@ class OwnerServiceMapTest {
         Owner owner = createReferenceOwner();
         owner.setId(null);
         PetType petType = new PetType(PET_TYPE_NAME);
-        Pet pet = new Pet("PET_NAME", LocalDate.now(), petType, owner);
+        Pet pet = Pet.builder().name("PET_NAME").birthDate(LocalDate.now()).petType(petType).owner(owner).build();
         owner.addPet(pet);
         //when
         Owner resultOwner = ownerServiceMap.save(owner);

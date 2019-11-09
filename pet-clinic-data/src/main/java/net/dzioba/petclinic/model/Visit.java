@@ -1,11 +1,17 @@
 package net.dzioba.petclinic.model;
 
+import lombok.*;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "visit")
 public class Visit extends BaseEntity {
@@ -22,36 +28,11 @@ public class Visit extends BaseEntity {
     @JoinColumn(name = "pet_id")
     private Pet pet;
 
-    public Visit() {
-    }
-
-    public Visit(LocalDateTime date, String description, Pet pet) {
+    @Builder
+    public Visit(Long id, LocalDateTime date, String description, Pet pet) {
+        super(id);
         this.date = date;
         this.description = description;
-        this.pet = pet;
-    }
-
-    public LocalDateTime getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDateTime date) {
-        this.date = date;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Pet getPet() {
-        return pet;
-    }
-
-    public void setPet(Pet pet) {
         this.pet = pet;
     }
 

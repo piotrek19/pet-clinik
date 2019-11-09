@@ -1,5 +1,7 @@
 package net.dzioba.petclinic.model;
 
+import lombok.*;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -7,6 +9,10 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "speciality")
 public class Speciality extends BaseEntity {
@@ -16,18 +22,9 @@ public class Speciality extends BaseEntity {
     @Column(name = "description")
     private String description;
 
-    public Speciality() {
-    }
-
-    public Speciality(String description) {
-        this.description = description;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
+    @Builder
+    public Speciality(Long id, @NotBlank @Size(max = 255) String description) {
+        super(id);
         this.description = description;
     }
 

@@ -1,5 +1,7 @@
 package net.dzioba.petclinic.model;
 
+import lombok.*;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -8,6 +10,10 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "pet")
 public class Pet extends BaseEntity {
@@ -31,54 +37,16 @@ public class Pet extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet")
     private Set<Visit> visits = new HashSet<>();
 
-    public Pet() {
-    }
-
-    public Pet(String name, LocalDate birthDate, PetType petType, Owner owner) {
+    @Builder
+    public Pet(Long id, @NotBlank @Size(max = 255) String name, LocalDate birthDate, PetType petType, Owner owner, Set<Visit> visits) {
+        super(id);
         this.name = name;
         this.birthDate = birthDate;
         this.petType = petType;
         this.owner = owner;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public PetType getPetType() {
-        return petType;
-    }
-
-    public void setPetType(PetType petType) {
-        this.petType = petType;
-    }
-
-    public Owner getOwner() {
-        return owner;
-    }
-
-    public void setOwner(Owner owner) {
-        this.owner = owner;
-    }
-
-    public Set<Visit> getVisits() {
-        return visits;
-    }
-
-    public void setVisits(Set<Visit> visits) {
-        this.visits = visits;
+        if (visits != null){
+            this.visits = visits;
+        }
     }
 
     public void addVisit(Visit visit){
