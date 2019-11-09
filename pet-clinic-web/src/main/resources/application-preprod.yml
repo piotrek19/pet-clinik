@@ -4,6 +4,7 @@ spring:
     url: jdbc:mysql://localhost:3306/dzn_preprod_schema
     username: dzn_preprod_user
     password: passwd
+    platform: mysql
   jpa:
     hibernate:
       ddl-auto: validate
