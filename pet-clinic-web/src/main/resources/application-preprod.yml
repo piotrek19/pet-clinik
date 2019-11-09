@@ -1,0 +1,21 @@
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/dzn_preprod_schema
+    username: dzn_preprod_user
+    password: passwd
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: mysql
+    show-sql: false
+# uncomment all below if generation of sql script file to create tables is needed
+#    properties:
+#      javax:
+#        persistence:
+#          schema-generation:
+#            create-source: metadata
+#            scripts:
+#              action: create
+#              create-target: pet-clinic-web/src/main/resources/scripts/preprod/create-tables.sql
