@@ -16,6 +16,10 @@ public class PetShortMapperDecorator implements PetShortMapper {
         this.petShortMapper = petShortMapper;
     }
 
+    public PetShortMapper getPetShortMapper() {
+        return petShortMapper;
+    }
+
     @Override
     public PetShortDTO petToPetShortDTO(Pet pet) {
         PetShortDTO petShortDTO = petShortMapper.petToPetShortDTO(pet);
