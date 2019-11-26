@@ -3,7 +3,7 @@ Master status: [![CircleCI](https://circleci.com/gh/piotrek19/pet-clinik/tree/ma
 
 Pet Clinic - Spring 5 stack:
 - Spring MVC
-- JPA
+- Spring Data JPA
 - BV
 - Thymeleaf
 
