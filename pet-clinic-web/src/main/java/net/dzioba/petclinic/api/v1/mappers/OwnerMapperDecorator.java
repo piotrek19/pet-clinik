@@ -14,7 +14,8 @@ public class OwnerMapperDecorator implements OwnerMapper {
     private PetShortMapper petShortMapper;
 
     @Autowired
-    public void setOwnerMapper(@Qualifier("delegate") OwnerMapper ownerMapper) {
+    @Qualifier("delegate")
+    public void setOwnerMapper(OwnerMapper ownerMapper) {
         this.ownerMapper = ownerMapper;
     }
 

@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class PetShortDTO {
 
     private String name;
-    private String detailUrl;
+    private String detailsUrl;
 
 }

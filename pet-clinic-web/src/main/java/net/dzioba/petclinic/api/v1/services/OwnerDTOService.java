@@ -26,4 +26,14 @@ public class OwnerDTOService {
                 .map(ownerMapper::ownerToOwnerDTO)
                 .collect(Collectors.toList());
     }
+
+    public List<OwnerDTO> findByLastName(String lastName){
+        return ownerService.findByLastNameLike(lastName).stream()
+                .map(ownerMapper::ownerToOwnerDTO)
+                .collect(Collectors.toList());
+    }
+
+    public OwnerDTO findById(Long id){
+        return ownerMapper.ownerToOwnerDTO(ownerService.findById(id));
+    }
 }
