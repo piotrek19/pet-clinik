@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping ("/api/v1/owners")
 public class OwnerDTOController {
 
-    OwnerDTOService ownerDTOService;
+    private OwnerDTOService ownerDTOService;
 
     @Autowired
     public OwnerDTOController(OwnerDTOService ownerDTOService) {
@@ -29,13 +29,13 @@ public class OwnerDTOController {
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<OwnerDTO> getOwner(@PathVariable Long id){
+    ResponseEntity<OwnerDTO> getOwnerById(@PathVariable Long id){
         return new ResponseEntity<>(
                 ownerDTOService.findById(id), HttpStatus.OK);
     }
 
-    @GetMapping("/lastname/{lasstName}")
-    ResponseEntity<OwnerListDTO> getOwner(@PathVariable String lastName){
+    @GetMapping("/lastname/{lastName}")
+    ResponseEntity<OwnerListDTO> getOwnerByLastName(@PathVariable String lastName){
         return new ResponseEntity<OwnerListDTO>(
                 new OwnerListDTO(ownerDTOService.findByLastName("%" + lastName + "%")), HttpStatus.OK);
     }
