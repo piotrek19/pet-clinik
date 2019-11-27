@@ -24,18 +24,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(MockitoExtension.class)
 class OwnerDTOControllerTest {
 
-    public static final Long OWNER1_ID = 11L;
-    public static final String OWNER1_LASTNAME = "LNAME11";
-    public static final Long OWNER2_ID = 12L;
-    public static final String OWNER2_LASTNAME = "LNAME12";
+    private static final Long OWNER1_ID = 11L;
+    private static final String OWNER1_LASTNAME = "LNAME11";
+    private static final Long OWNER2_ID = 12L;
+    private static final String OWNER2_LASTNAME = "LNAME12";
 
     @InjectMocks
-    OwnerDTOController ownerDTOController; //class under test
+    private OwnerDTOController ownerDTOController; //class under test
 
     @Mock
-    OwnerDTOService ownerDTOService;
+    private OwnerDTOService ownerDTOService;
 
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
