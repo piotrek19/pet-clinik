@@ -1,5 +1,6 @@
 package net.dzioba.petclinic.api.v1.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import net.dzioba.petclinic.api.v1.model.PetDTO;
 import net.dzioba.petclinic.api.v1.services.PetDTOService;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +17,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -56,5 +58,26 @@ class PetDTOControllerTest {
                 .andExpect(jsonPath("$.name", equalTo(PET1_NAME)));
 
         verify(petDTOService, times(1)).findById(any());
+    }
+
+    @Test
+    void createPet() throws Exception {
+        PetDTO petDTO = new PetDTO();
+        petDTO.setId(PET1_ID);
+        petDTO.setName(PET1_NAME);
+
+        //given
+        when(petDTOService.save(petDTO))
+                .thenReturn(petDTO);
+
+        //when then
+        mockMvc.perform(post("/api/v1/owners/11/pets/")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(petDTO)))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id", equalTo((Integer.valueOf(PET1_ID.toString())))))
+                .andExpect(jsonPath("$.name", equalTo(PET1_NAME)));
+
+        verify(petDTOService, times(1)).save(any());
     }
 }
