@@ -35,4 +35,9 @@ public class PetMapperDecorator implements PetMapper {
         petDTO.setOwner(ownerShortMapper.ownerToOwnerShortDTO(pet.getOwner()));
         return petDTO;
     }
+
+    @Override
+    public Pet petDTOToPet(PetDTO petDTO) {
+        return petMapper.petDTOToPet(petDTO);
+    }
 }
