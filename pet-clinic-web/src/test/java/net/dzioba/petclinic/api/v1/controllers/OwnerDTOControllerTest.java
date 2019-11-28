@@ -49,7 +49,7 @@ class OwnerDTOControllerTest {
                 .thenReturn(createReferenceOwners());
 
         //when then
-        mockMvc.perform(get("/api/v1/owners")
+        mockMvc.perform(get(OwnerDTOController.BASE_URL)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.owners", hasSize(2)));
@@ -76,7 +76,7 @@ class OwnerDTOControllerTest {
                 .thenReturn(createReferenceOwners().get(0));
 
         //when then
-        mockMvc.perform(get("/api/v1/owners/" + OWNER1_ID)
+        mockMvc.perform(get(OwnerDTOController.BASE_URL + "/" + OWNER1_ID)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", equalTo((Integer.valueOf(OWNER1_ID.toString())))))
@@ -92,7 +92,7 @@ class OwnerDTOControllerTest {
                 .thenReturn(List.of(createReferenceOwners().get(1)));
 
         //when then
-        mockMvc.perform(get("/api/v1/owners/lastname/" + OWNER2_LASTNAME)
+        mockMvc.perform(get(OwnerDTOController.BASE_URL + "/lastname/" + OWNER2_LASTNAME)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.owners", hasSize(1)))

@@ -26,6 +26,7 @@ class PetDTOControllerTest {
 
     private static final Long PET1_ID = 11L;
     private static final String PET1_NAME = "PET1_NAME";
+    private static final Long OWNER_ID = 11L;
 
     @InjectMocks
     private PetDTOController petDTOController; //class under test
@@ -51,7 +52,7 @@ class PetDTOControllerTest {
                 .thenReturn(petDTO);
 
         //when then
-        mockMvc.perform(get("/api/v1/owners/11/pets/" + PET1_ID)
+        mockMvc.perform(get(PetDTOController.BASE_URL + "/" + PET1_ID, OWNER_ID)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", equalTo((Integer.valueOf(PET1_ID.toString())))))
@@ -67,17 +68,17 @@ class PetDTOControllerTest {
         petDTO.setName(PET1_NAME);
 
         //given
-        when(petDTOService.save(petDTO))
+        when(petDTOService.save(petDTO, OWNER_ID))
                 .thenReturn(petDTO);
 
         //when then
-        mockMvc.perform(post("/api/v1/owners/11/pets/")
+        mockMvc.perform(post(PetDTOController.BASE_URL, OWNER_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(petDTO)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", equalTo((Integer.valueOf(PET1_ID.toString())))))
                 .andExpect(jsonPath("$.name", equalTo(PET1_NAME)));
 
-        verify(petDTOService, times(1)).save(any());
+        verify(petDTOService, times(1)).save(any(), any());
     }
 }

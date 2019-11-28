@@ -1,5 +1,6 @@
 package net.dzioba.petclinic.api.v1.mappers;
 
+import net.dzioba.petclinic.api.v1.controllers.OwnerDTOController;
 import net.dzioba.petclinic.api.v1.model.PetShortDTO;
 import net.dzioba.petclinic.model.Pet;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class PetShortMapperDecorator implements PetShortMapper {
     @Override
     public PetShortDTO petToPetShortDTO(Pet pet) {
         PetShortDTO petShortDTO = petShortMapper.petToPetShortDTO(pet);
-        petShortDTO.setDetailsUrl("localhost:8080/api/v1/owners/" + pet.getOwner().getId() + "/pets/" + pet.getId());
+        petShortDTO.setDetailsUrl(OwnerDTOController.BASE_URL + "/" + pet.getOwner().getId() + "/pets/" + pet.getId());
         return petShortDTO;
     }
 }

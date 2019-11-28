@@ -1,5 +1,6 @@
 package net.dzioba.petclinic.api.v1.mappers;
 
+import net.dzioba.petclinic.api.v1.controllers.OwnerDTOController;
 import net.dzioba.petclinic.api.v1.model.OwnerShortDTO;
 import net.dzioba.petclinic.model.Owner;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class OwnerShortMapperDecorator implements OwnerShortMapper {
     @Override
     public OwnerShortDTO ownerToOwnerShortDTO(Owner owner) {
         OwnerShortDTO ownerShortDTO = ownerShortMapper.ownerToOwnerShortDTO(owner);
-        ownerShortDTO.setDetailsUrl("localhost:8080/api/v1/owners/" + owner.getId());
+        ownerShortDTO.setDetailsUrl(OwnerDTOController.BASE_URL+ "/" + owner.getId());
         return ownerShortDTO;
     }
 }

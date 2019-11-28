@@ -4,15 +4,15 @@ import net.dzioba.petclinic.api.v1.model.PetDTO;
 import net.dzioba.petclinic.api.v1.services.PetDTOService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequestMapping("/api/v1/owners/{ownerId}/pets")
+@RestController
+@RequestMapping(PetDTOController.BASE_URL)
 public class PetDTOController {
 
-    private PetDTOService petDTOService;
+    public static final String BASE_URL = "/api/v1/owners/{ownerId}/pets";
+
+    private final PetDTOService petDTOService;
 
     @Autowired
     public PetDTOController(PetDTOService petDTOService) {
@@ -20,14 +20,15 @@ public class PetDTOController {
     }
 
     @GetMapping("/{petId}")
-    ResponseEntity<PetDTO> findById(@PathVariable Long ownerId, @PathVariable Long petId){
-        return new ResponseEntity<>(
-                petDTOService.findById(petId), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public PetDTO findById(@PathVariable Long petId){
+
+        return petDTOService.findById(petId);
     }
 
     @PostMapping
-    ResponseEntity<PetDTO> createPet(@RequestBody PetDTO petDTO){
-        return new ResponseEntity<>(
-                petDTOService.save(petDTO), HttpStatus.CREATED);
+    @ResponseStatus(HttpStatus.CREATED)
+    public PetDTO createPet(@RequestBody PetDTO petDTO, @PathVariable Long ownerId){
+        return petDTOService.save(petDTO, ownerId);
     }
 }

@@ -36,12 +36,10 @@ public class PetDTOService {
     }
 
     @Transactional
-    public PetDTO save(PetDTO petDTO){
+    public PetDTO save(PetDTO petDTO, Long ownerId){
         Pet pet = petMapper.petDTOToPet(petDTO);
 
         // retrieve owner and make object references:
-        Long ownerId = pet.getOwner().getId();
-        Objects.requireNonNull(ownerId);
         Owner retrievedOwner = ownerService.findById(ownerId);
         Objects.requireNonNull(retrievedOwner);
 
