@@ -2,6 +2,7 @@ package net.dzioba.petclinic.api.v1.services;
 
 import net.dzioba.petclinic.api.v1.mappers.OwnerMapper;
 import net.dzioba.petclinic.api.v1.model.OwnerDTO;
+import net.dzioba.petclinic.model.Owner;
 import net.dzioba.petclinic.services.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,13 @@ public class OwnerDTOService {
     }
 
     public OwnerDTO findById(Long id){
-        return ownerMapper.ownerToOwnerDTO(ownerService.findById(id));
+        OwnerDTO ownerDTO = null;
+
+        Owner retrievedOwner = ownerService.findById(id);
+        if (retrievedOwner != null){
+            ownerDTO = ownerMapper.ownerToOwnerDTO(retrievedOwner);
+        }
+
+        return ownerDTO;
     }
 }

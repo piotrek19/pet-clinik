@@ -5,6 +5,7 @@ import net.dzioba.petclinic.api.v1.model.OwnerListDTO;
 import net.dzioba.petclinic.api.v1.services.OwnerDTOService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -28,10 +29,12 @@ public class OwnerDTOController {
     }
 
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public OwnerDTO getOwnerById(@PathVariable Long id){
+    public ResponseEntity<OwnerDTO> getOwnerById(@PathVariable Long id){
 
-        return ownerDTOService.findById(id);
+        OwnerDTO ownerDTO = ownerDTOService.findById(id);
+
+        return ownerDTO == null ?
+                ResponseEntity.notFound().build() : ResponseEntity.ok(ownerDTO);
     }
 
     @GetMapping("/lastname/{lastName}")

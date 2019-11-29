@@ -4,6 +4,7 @@ import net.dzioba.petclinic.api.v1.model.PetDTO;
 import net.dzioba.petclinic.api.v1.services.PetDTOService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,10 +21,12 @@ public class PetDTOController {
     }
 
     @GetMapping("/{petId}")
-    @ResponseStatus(HttpStatus.OK)
-    public PetDTO findById(@PathVariable Long petId){
+    public ResponseEntity<PetDTO> findById(@PathVariable Long petId){
 
-        return petDTOService.findById(petId);
+        PetDTO petDTO = petDTOService.findById(petId);
+
+        return petDTO == null ?
+                ResponseEntity.notFound().build() : ResponseEntity.ok(petDTO);
     }
 
     @PostMapping

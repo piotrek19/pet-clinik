@@ -88,6 +88,21 @@ class OwnerDTOControllerTest {
     }
 
     @Test
+    void getOwnerByIdAndNotFound() throws Exception {
+        //given
+        when(ownerDTOService.findById(OWNER1_ID))
+                .thenReturn(null);
+
+        //when then
+        mockMvc.perform(get(OwnerDTOController.BASE_URL + "/" + OWNER1_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+
+        verify(ownerDTOService, times(1)).findById(any());
+    }
+
+    @Test
     void testGetOwnerByLastName() throws Exception {
         //given
         when(ownerDTOService.findByLastName("%" + OWNER2_LASTNAME + "%"))

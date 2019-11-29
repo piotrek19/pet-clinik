@@ -32,7 +32,13 @@ public class PetDTOService {
     }
 
     public PetDTO findById(Long id){
-        return petMapper.petToPetDTO(petService.findById(id));
+        PetDTO petDTO = null;
+
+        Pet retrievedPet = petService.findById(id);
+        if (retrievedPet != null){
+            petDTO = petMapper.petToPetDTO(retrievedPet);
+        }
+        return petDTO;
     }
 
     @Transactional

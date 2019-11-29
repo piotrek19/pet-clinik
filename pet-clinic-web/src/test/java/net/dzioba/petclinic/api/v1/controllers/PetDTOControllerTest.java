@@ -62,6 +62,21 @@ class PetDTOControllerTest {
     }
 
     @Test
+    public void findByIdAndNotFound() throws Exception {
+
+        //given
+        when(petDTOService.findById(PET1_ID)).thenReturn(null);
+
+        //when then
+        mockMvc.perform(get(PetDTOController.BASE_URL + "/" + PET1_ID, OWNER_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+
+        verify(petDTOService, times(1)).findById(any());
+    }
+
+    @Test
     public void createPet() throws Exception {
         PetDTO petDTO = new PetDTO();
         petDTO.setId(PET1_ID);
