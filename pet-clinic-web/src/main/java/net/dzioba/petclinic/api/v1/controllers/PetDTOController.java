@@ -31,4 +31,10 @@ public class PetDTOController {
     public PetDTO createPet(@RequestBody PetDTO petDTO, @PathVariable Long ownerId){
         return petDTOService.save(petDTO, ownerId);
     }
+
+    @DeleteMapping("/{petId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deletePet(@PathVariable Long petId){
+        petDTOService.deleteById(petId);
+    }
 }

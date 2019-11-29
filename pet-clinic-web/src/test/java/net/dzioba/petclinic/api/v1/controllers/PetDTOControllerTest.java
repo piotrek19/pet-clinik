@@ -16,8 +16,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -37,12 +36,12 @@ class PetDTOControllerTest {
     private MockMvc mockMvc;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         mockMvc = MockMvcBuilders.standaloneSetup(petDTOController).build();
     }
 
     @Test
-    void findById() throws Exception {
+    public void findById() throws Exception {
         PetDTO petDTO = new PetDTO();
         petDTO.setId(PET1_ID);
         petDTO.setName(PET1_NAME);
@@ -53,7 +52,8 @@ class PetDTOControllerTest {
 
         //when then
         mockMvc.perform(get(PetDTOController.BASE_URL + "/" + PET1_ID, OWNER_ID)
-                .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", equalTo((Integer.valueOf(PET1_ID.toString())))))
                 .andExpect(jsonPath("$.name", equalTo(PET1_NAME)));
@@ -62,7 +62,7 @@ class PetDTOControllerTest {
     }
 
     @Test
-    void createPet() throws Exception {
+    public void createPet() throws Exception {
         PetDTO petDTO = new PetDTO();
         petDTO.setId(PET1_ID);
         petDTO.setName(PET1_NAME);
@@ -74,11 +74,25 @@ class PetDTOControllerTest {
         //when then
         mockMvc.perform(post(PetDTOController.BASE_URL, OWNER_ID)
                 .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(petDTO)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", equalTo((Integer.valueOf(PET1_ID.toString())))))
                 .andExpect(jsonPath("$.name", equalTo(PET1_NAME)));
 
         verify(petDTOService, times(1)).save(any(), any());
+    }
+
+    @Test
+    public void deletePet() throws Exception {
+
+        //when then
+        mockMvc.perform(delete(PetDTOController.BASE_URL + "/" + PET1_ID, OWNER_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        verify(petDTOService, times(1)).deleteById(PET1_ID);
+
     }
 }

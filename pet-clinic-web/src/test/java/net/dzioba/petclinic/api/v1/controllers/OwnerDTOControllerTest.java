@@ -50,7 +50,8 @@ class OwnerDTOControllerTest {
 
         //when then
         mockMvc.perform(get(OwnerDTOController.BASE_URL)
-                .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.owners", hasSize(2)));
 
@@ -77,7 +78,8 @@ class OwnerDTOControllerTest {
 
         //when then
         mockMvc.perform(get(OwnerDTOController.BASE_URL + "/" + OWNER1_ID)
-                .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", equalTo((Integer.valueOf(OWNER1_ID.toString())))))
                 .andExpect(jsonPath("$.lastName", equalTo(OWNER1_LASTNAME)));
@@ -93,7 +95,8 @@ class OwnerDTOControllerTest {
 
         //when then
         mockMvc.perform(get(OwnerDTOController.BASE_URL + "/lastname/" + OWNER2_LASTNAME)
-                .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.owners", hasSize(1)))
                 .andExpect(jsonPath("$.owners[0].id", equalTo((Integer.valueOf(OWNER2_ID.toString())))))

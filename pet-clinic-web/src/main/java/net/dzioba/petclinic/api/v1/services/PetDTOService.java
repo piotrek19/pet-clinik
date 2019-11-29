@@ -57,4 +57,9 @@ public class PetDTOService {
         Pet savedPet = petService.save(pet);
         return petMapper.petToPetDTO(savedPet);
     }
+
+    public void deleteById(Long id) {
+
+        petService.deleteById(id);
+    }
 }
