@@ -1,0 +1,28 @@
+= Pet Clinic Api Docs
+Piotr Dzioba;
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+
+Pet Clinic api docs cooked using Spring REST Docs with JUnit 5.
+
+`PetDTOControllerTest` makes a call to /api/owners/ownerId/pets service and produces documentation snippets:
+
+One showing how to make a request using cURL:
+
+include::{snippets}/v1/owners/ownerId/pets/curl-request.adoc[]
+
+One showing the HTTP request:
+
+include::{snippets}/v1/owners/ownerId/pets/http-request.adoc[]
+
+And one showing the HTTP response:
+
+include::{snippets}/v1/owners/ownerId/pets/http-response.adoc[]
+
+Response Body:
+include::{snippets}/v1/owners/ownerId/pets/response-body.adoc[]
+
+
+Response Fields:
+include::{snippets}/v1/owners/ownerId/pets/response-fields.adoc[]
