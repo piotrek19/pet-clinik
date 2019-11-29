@@ -13,7 +13,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.List;
+
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -25,6 +28,8 @@ class PetDTOControllerTest {
 
     private static final Long PET1_ID = 11L;
     private static final String PET1_NAME = "PET1_NAME";
+    private static final Long PET2_ID = 12L;
+    private static final String PET2_NAME = "PET2_NAME";
     private static final Long OWNER_ID = 11L;
 
     @InjectMocks
@@ -38,6 +43,35 @@ class PetDTOControllerTest {
     @BeforeEach
     public void setUp() {
         mockMvc = MockMvcBuilders.standaloneSetup(petDTOController).build();
+    }
+
+    @Test
+    void findPetsOfGivenOwner() throws Exception {
+        //given
+        when(petDTOService.findPetsOfGivenOwner(OWNER_ID))
+                .thenReturn(createReferencePets());
+
+        //when then
+        mockMvc.perform(get(PetDTOController.BASE_URL, OWNER_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.pets", hasSize(2)));
+
+        verify(petDTOService, times(1)).findPetsOfGivenOwner(any());
+
+    }
+
+    private List<PetDTO> createReferencePets() {
+        PetDTO petDTO1 = new PetDTO();
+        petDTO1.setId(PET1_ID);
+        petDTO1.setName(PET1_NAME);
+
+        PetDTO petDTO2 = new PetDTO();
+        petDTO2.setId(PET2_ID);
+        petDTO2.setName(PET2_NAME);
+
+        return List.of(petDTO1, petDTO2);
     }
 
     @Test

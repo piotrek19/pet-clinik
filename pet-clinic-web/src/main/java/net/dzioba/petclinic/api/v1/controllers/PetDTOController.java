@@ -1,6 +1,7 @@
 package net.dzioba.petclinic.api.v1.controllers;
 
 import net.dzioba.petclinic.api.v1.model.PetDTO;
+import net.dzioba.petclinic.api.v1.model.PetListDTO;
 import net.dzioba.petclinic.api.v1.services.PetDTOService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,12 @@ public class PetDTOController {
     @Autowired
     public PetDTOController(PetDTOService petDTOService) {
         this.petDTOService = petDTOService;
+    }
+
+    @GetMapping
+    public PetListDTO listPetsOfGivenOwner(@PathVariable Long ownerId){
+
+        return new PetListDTO(petDTOService.findPetsOfGivenOwner(ownerId));
     }
 
     @GetMapping("/{petId}")

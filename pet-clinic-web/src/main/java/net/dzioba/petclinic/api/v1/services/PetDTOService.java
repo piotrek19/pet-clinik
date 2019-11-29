@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class PetDTOService {
@@ -29,6 +31,13 @@ public class PetDTOService {
         this.petMapper = petMapper;
         this.ownerService = ownerService;
         this.petTypeService = petTypeService;
+    }
+
+    public List<PetDTO> findPetsOfGivenOwner(Long ownerId) {
+        return petService.findAll().stream()
+                .filter(p -> p.getOwner().getId() == ownerId )  // todo: repository level filtering instead of retrieving all
+                .map(petMapper::petToPetDTO)
+                .collect(Collectors.toList());
     }
 
     public PetDTO findById(Long id){
