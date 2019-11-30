@@ -63,7 +63,7 @@ class PetDTOControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.pets", hasSize(2)))
-                .andDo(document("v1/owners/ownerId/pets",
+                .andDo(document("v1/owners/ownerId/pets-getMany",
                         pathParameters(
                                 parameterWithName("ownerId").description("Id of Owner which Pets are wanted to get.")
                         ),
@@ -112,7 +112,7 @@ class PetDTOControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", equalTo((Integer.valueOf(PET1_ID.toString())))))
                 .andExpect(jsonPath("$.name", equalTo(PET1_NAME)))
-                .andDo(document("v1/owners/ownerId/pets",
+                .andDo(document("v1/owners/ownerId/pets-get",
                         pathParameters(
                                 parameterWithName("ownerId").description("Id of Owner which Pet is wanted to get."),
                                 parameterWithName("petId").description("Id of Pet is wanted to get.")
@@ -179,7 +179,7 @@ class PetDTOControllerTest {
                 .content(new ObjectMapper().writeValueAsString(petDTO)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", equalTo((Integer.valueOf(PET1_ID.toString())))))
-                .andDo(document("v1/owners/ownerId/pets",
+                .andDo(document("v1/owners/ownerId/pets-create",
                         requestFields(
                                 fields.withPath("id").ignored(),
                                 fields.withPath("name").description("Pet name"),
@@ -217,7 +217,7 @@ class PetDTOControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andDo(document("v1/owners/ownerId/pets",
+                .andDo(document("v1/owners/ownerId/pets-delete",
                         pathParameters(
                                 parameterWithName("ownerId").description("Id of Owner which Pet is wanted to delete."),
                                 parameterWithName("petId").description("Id of Pet which is wanted to delete.")

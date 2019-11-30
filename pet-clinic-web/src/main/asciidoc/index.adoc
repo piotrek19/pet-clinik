@@ -4,25 +4,64 @@ Piotr Dzioba;
 :icons: font
 :source-highlighter: highlightjs
 
-Pet Clinic api docs cooked using Spring REST Docs with JUnit 5.
+Pet Clinic rest api docs cooked using Spring REST Docs with JUnit 5.
 
-`PetDTOControllerTest` makes a call to /api/owners/ownerId/pets service and produces documentation snippets:
+`PetDTOControllerTest` makes a call to /api/owners/ownerId/pets service and produces documentation snippets.
 
-One showing how to make a request using cURL:
+=> GET ALL Pets OF given OWNER:
 
-include::{snippets}/v1/owners/ownerId/pets/curl-request.adoc[]
+How to make a request using cURL:
+include::{snippets}/v1/owners/ownerId/pets-getMany/curl-request.adoc[]
 
-One showing the HTTP request:
+HTTP request:
+include::{snippets}/v1/owners/ownerId/pets-getMany/http-request.adoc[]
 
-include::{snippets}/v1/owners/ownerId/pets/http-request.adoc[]
-
-And one showing the HTTP response:
-
-include::{snippets}/v1/owners/ownerId/pets/http-response.adoc[]
-
-Response Body:
-include::{snippets}/v1/owners/ownerId/pets/response-body.adoc[]
-
+HTTP response:
+include::{snippets}/v1/owners/ownerId/pets-getMany/http-response.adoc[]
 
 Response Fields:
-include::{snippets}/v1/owners/ownerId/pets/response-fields.adoc[]
+include::{snippets}/v1/owners/ownerId/pets-getMany/response-fields.adoc[]
+
+=> GET a Pet:
+
+How to make a request using cURL:
+include::{snippets}/v1/owners/ownerId/pets-get/curl-request.adoc[]
+
+HTTP request:
+include::{snippets}/v1/owners/ownerId/pets-get/http-request.adoc[]
+
+HTTP response:
+include::{snippets}/v1/owners/ownerId/pets-get/http-response.adoc[]
+
+Response Fields:
+include::{snippets}/v1/owners/ownerId/pets-get/response-fields.adoc[]
+
+
+=> DELETE a Pet:
+
+How to make a request using cURL:
+include::{snippets}/v1/owners/ownerId/pets-delete/curl-request.adoc[]
+
+HTTP request:
+include::{snippets}/v1/owners/ownerId/pets-delete/http-request.adoc[]
+
+HTTP response:
+include::{snippets}/v1/owners/ownerId/pets-delete/http-response.adoc[]
+
+
+=> CREATE a Pet:
+
+How to make a request using cURL:
+include::{snippets}/v1/owners/ownerId/pets-create/curl-request.adoc[]
+
+HTTP request:
+include::{snippets}/v1/owners/ownerId/pets-create/http-request.adoc[]
+
+HTTP response:
+include::{snippets}/v1/owners/ownerId/pets-create/http-response.adoc[]
+
+Request Fields:
+include::{snippets}/v1/owners/ownerId/pets-create/request-fields.adoc[]
+
+Response Fields:
+include::{snippets}/v1/owners/ownerId/pets-create/response-fields.adoc[]
