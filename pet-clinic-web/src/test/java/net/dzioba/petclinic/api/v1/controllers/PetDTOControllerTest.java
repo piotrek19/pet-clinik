@@ -204,6 +204,7 @@ class PetDTOControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", equalTo((Integer.valueOf(PET1_ID.toString())))))
                 .andDo(document("v1/owners/ownerId/pets-create",
+                        ownerPathParametersSnippet,
                         requestFields(
                                 fields.withPath("id").ignored(),
                                 fields.withPath("name").description("Pet name"),

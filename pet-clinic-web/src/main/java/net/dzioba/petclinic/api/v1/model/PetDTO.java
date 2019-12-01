@@ -4,8 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,8 +20,14 @@ public class PetDTO {
     @Size(max=255)
     private String name;
 
+    @Past
+    @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$")
     private LocalDate birthDate;
+
+    @NotNull
     private PetTypeDTO petType;
+
     private OwnerShortDTO owner;
+
     private Set<VisitDTO> visits = new HashSet<>();
 }

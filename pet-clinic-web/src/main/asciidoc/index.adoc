@@ -10,6 +10,9 @@ Pet Clinic rest api docs cooked using Spring REST Docs with JUnit 5.
 
 => GET ALL Pets OF given OWNER:
 
+Path
+include::{snippets}/v1/owners/ownerId/pets-getMany/path-parameters.adoc[]
+
 How to make a request using cURL:
 include::{snippets}/v1/owners/ownerId/pets-getMany/curl-request.adoc[]
 
@@ -23,6 +26,9 @@ Response Fields:
 include::{snippets}/v1/owners/ownerId/pets-getMany/response-fields.adoc[]
 
 => GET a Pet:
+
+Path
+include::{snippets}/v1/owners/ownerId/pets-get/path-parameters.adoc[]
 
 How to make a request using cURL:
 include::{snippets}/v1/owners/ownerId/pets-get/curl-request.adoc[]
@@ -39,6 +45,9 @@ include::{snippets}/v1/owners/ownerId/pets-get/response-fields.adoc[]
 
 => DELETE a Pet:
 
+Path
+include::{snippets}/v1/owners/ownerId/pets-delete/path-parameters.adoc[]
+
 How to make a request using cURL:
 include::{snippets}/v1/owners/ownerId/pets-delete/curl-request.adoc[]
 
@@ -50,6 +59,9 @@ include::{snippets}/v1/owners/ownerId/pets-delete/http-response.adoc[]
 
 
 => CREATE a Pet:
+
+Path
+include::{snippets}/v1/owners/ownerId/pets-create/path-parameters.adoc[]
 
 How to make a request using cURL:
 include::{snippets}/v1/owners/ownerId/pets-create/curl-request.adoc[]
