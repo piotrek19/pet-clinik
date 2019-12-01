@@ -21,6 +21,7 @@ import org.springframework.restdocs.request.PathParametersSnippet;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.hamcrest.Matchers.equalTo;
@@ -46,6 +47,9 @@ class PetDTOControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     // REST DOCS common documentation artifacts:
     private static ConstrainedFields fields = new ConstrainedFields(PetDTO.class);
@@ -102,7 +106,7 @@ class PetDTOControllerTest {
     private static PetDTO getNewPetDTO() {
         PetDTO petDTO = new PetDTO();
         petDTO.setName("PetName");
-        //petDTO.setBirthDate(LocalDate.of(2015, 1,15));    //todo: LocalDate conversion to json fails
+        petDTO.setBirthDate(LocalDate.of(2015, 1,15));
         PetTypeDTO petTypeDTO = new PetTypeDTO(1L, null);
         petDTO.setPetType(petTypeDTO);
         return petDTO;
@@ -112,7 +116,7 @@ class PetDTOControllerTest {
         PetDTO resultPetDTO = new PetDTO();
         resultPetDTO.setId(PET1_ID);
         resultPetDTO.setName(PET1_NAME);
-        //resultPetDTO.setBirthDate(LocalDate.of(2015, 1,15));    //todo: LocalDate conversion to json fails
+        resultPetDTO.setBirthDate(LocalDate.of(2015, 1,15));
         PetTypeDTO resultPetTypeDTO = new PetTypeDTO(1L, "dog");
         OwnerShortDTO resultOwnerShortDTO = new OwnerShortDTO(
                 OWNER_ID, "OwnerFirstName", "OwnerLastName", "localhost:8080/api/v1/owners/" + OWNER_ID);
@@ -196,7 +200,7 @@ class PetDTOControllerTest {
         mockMvc.perform(post(PetDTOController.BASE_URL, OWNER_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsString(petDTO)))
+                .content(objectMapper.writeValueAsString(petDTO)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", equalTo((Integer.valueOf(PET1_ID.toString())))))
                 .andDo(document("v1/owners/ownerId/pets-create",
