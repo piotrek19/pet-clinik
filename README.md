@@ -11,3 +11,6 @@ Tests:
 - Junit
 - AssertJ
 - Mockito
+
+Api documentation:
+- Spring Rest Docs
