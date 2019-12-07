@@ -17,5 +17,5 @@ Api documentation:
 
 
 Inspired by:
-- John's Thomson udemy course "Spring Framework 5: Beginner to Guru": https://www.udemy.com/spring-framework-5-beginner-to-guru
+- John's Thompson udemy course "Spring Framework 5: Beginner to Guru": https://www.udemy.com/spring-framework-5-beginner-to-guru
 - Spring-based Pet Clinic reference application: https://github.com/spring-projects/spring-petclinic
