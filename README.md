@@ -29,5 +29,5 @@ To launch the app using attached Maven wrapper (environment with embedded Tomcat
 In case of any questions please raise [GitHub Issue](https://github.com/piotrek19/pet-clinik/issues)
 
 ### Inspired By:
-- John's Thompson great Udemy course [Spring Framework 5: Beginner to Guru"](https://www.udemy.com/spring-framework-5-beginner-to-guru)
+- John's Thompson great Udemy course ["Spring Framework 5: Beginner to Guru"](https://www.udemy.com/spring-framework-5-beginner-to-guru)
 - Pet Clinic [Spring reference application](https://github.com/spring-projects/spring-petclinic)
