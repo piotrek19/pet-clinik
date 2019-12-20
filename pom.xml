@@ -61,8 +61,15 @@
         <go-offline-maven-plugin.version>1.2.1</go-offline-maven-plugin.version>
         <asciidoctor-maven-plugin.version>1.5.8</asciidoctor-maven-plugin.version>
         <git-commit-id-plugin.version>2.2.6</git-commit-id-plugin.version>
+        <gmavenplus-plugin.version>1.8.1</gmavenplus-plugin.version>
+        <docker-maven-plugin.version>0.31.0</docker-maven-plugin.version>
         <!--  Dependencies:  -->
+        <groovy-all.version>2.4.17</groovy-all.version>
         <org.mapstruct.version>1.3.1.Final</org.mapstruct.version>
+        <!-- Docker -->
+        <docker.image.prefix>piotrek19</docker.image.prefix> <!--docker acct name-->
+        <docker.image.name>pet-clinic</docker.image.name> <!--name of project-->
+        <!-- end of Docker -->
     </properties>
 
     <scm>

@@ -1,5 +1,5 @@
 # Pet Clinic Web App
-Master status: [![CircleCI](https://circleci.com/gh/piotrek19/pet-clinik/tree/master.svg?style=svg&circle-token=da37dfe74512bd91609a6da6317f0c2e7a4a2b99)](https://circleci.com/gh/piotrek19/pet-clinik/tree/master)
+CircleCI: [![CircleCI](https://circleci.com/gh/piotrek19/pet-clinik/tree/master.svg?style=svg&circle-token=da37dfe74512bd91609a6da6317f0c2e7a4a2b99)](https://circleci.com/gh/piotrek19/pet-clinik/tree/master)
 
 ### Application stack
 Spring 5:
@@ -25,6 +25,7 @@ To launch the app using attached Maven wrapper (environment with embedded Tomcat
 - ./mvnw clean install -DskipTests
 - ./mvnw spring-boot:run -f ./pet-clinic-web/pom.xml
 
+If You prefer execution using Docker You can find image here: [DockerHub](https://hub.docker.com/r/piotrek19/pet-clinic)
 ### Contact and Support
 In case of any questions please raise [GitHub Issue](https://github.com/piotrek19/pet-clinik/issues)
 
