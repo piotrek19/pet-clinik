@@ -40,7 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(RestDocumentationExtension.class)
 @AutoConfigureRestDocs
 @WebMvcTest(PetDTOController.class)
-class PetDTOControllerTest {
+class PetDTOControllerIT {
 
     @MockBean
     private PetDTOService petDTOService;
