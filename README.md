@@ -25,7 +25,7 @@ To launch the app using attached Maven wrapper (environment with embedded Tomcat
 - ./mvnw clean install -DskipTests
 - ./mvnw spring-boot:run -f ./pet-clinic-web/pom.xml
 
-If You prefer execution using Docker You can find image here: [DockerHub](https://hub.docker.com/r/piotrek19/pet-clinic)
+If You prefer execution using Docker: [DockerHub](https://hub.docker.com/r/piotrek19/pet-clinic)
 ### Contact and Support
 In case of any questions please raise [GitHub Issue](https://github.com/piotrek19/pet-clinik/issues)
 
